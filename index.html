@@ -3,121 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flashcards Jurídicos </title>
+    <title>Flashcards Jurídicos Modernista</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0a0a0a;
-            color: #e5e7eb;
-            overflow: hidden; /* Prevent scrollbars from the background effect */
-        }
-        
-        /* Aurora Background Effect */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 15% 80%, rgba(79, 70, 229, 0.2), transparent 40%),
-                radial-gradient(circle at 85% 25%, rgba(59, 130, 246, 0.15), transparent 40%);
-            filter: blur(80px);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .main-container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .flashcard-container {
-            perspective: 2000px;
-        }
-        .flashcard {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform-style: preserve-3d;
-        }
-        .flashcard.is-flipped {
-            transform: rotateY(180deg);
-        }
-        .flashcard-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2.5rem;
-            text-align: center;
-            border-radius: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(31, 41, 55, 0.3); /* Glassy background */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 0 40px rgba(0,0,0,0.2);
-        }
-        .flashcard-front::before {
-             content: 'PERGUNTA';
-             position: absolute;
-             top: 1.5rem;
-             font-size: 0.75rem;
-             font-weight: 600;
-             color: #6b7280;
-             letter-spacing: 0.1em;
-        }
-        .flashcard-back {
-            transform: rotateY(180deg);
-            background: rgba(79, 70, 229, 0.1);
-        }
-        .flashcard-back::before {
-             content: 'RESPOSTA';
-             position: absolute;
-             top: 1.5rem;
-             font-size: 0.75rem;
-             font-weight: 600;
-             color: #9ca3af;
-             letter-spacing: 0.1em;
-        }
-        
-        .deck-button, .nav-button, #flip-card {
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
-        .deck-button {
-             background: rgba(31, 41, 55, 0.5);
-        }
-        .deck-button:hover, .nav-button:hover, #flip-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-        }
-        .deck-button.active {
-            background-color: #4f46e5;
-            color: white;
-            border-color: #4f46e5;
-            box-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
-        }
-        #flip-card {
-            background: linear-gradient(45deg, #4f46e5, #3b82f6);
-        }
-    </style>
+    
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
 
@@ -127,12 +19,15 @@
             <p class="text-gray-400 mt-3 text-lg">Estude Direito Societário de forma interativa.</p>
         </header>
 
-        <div class="mb-8 flex justify-center space-x-4">
-            <button id="deck-coop" class="deck-button active text-white font-semibold py-3 px-6 rounded-full">
+        <div class="mb-8 flex flex-wrap justify-center gap-4">
+            <button id="deck-coop" class="deck-button text-white font-semibold py-3 px-6 rounded-full">
                 Cooperativas
             </button>
             <button id="deck-ca" class="deck-button text-white font-semibold py-3 px-6 rounded-full">
                 Comandita por Ações
+            </button>
+            <button id="deck-sa" class="deck-button text-white font-semibold py-3 px-6 rounded-full">
+                Órgãos da S.A.
             </button>
         </div>
 
@@ -162,107 +57,10 @@
         </div>
     </div>
 
-    <footer class="absolute bottom-6 text-center text-gray-600 text-sm w-full">
+    <footer class="relative mt-10 bottom-6 text-center text-gray-600 text-sm w-full">
         <p>Feito por Sheiden Development Studios</p>
     </footer>
 
-    <script>
-        const flashcardsData = {
-            cooperativas: [
-                { q: "Qual a base legal da Sociedade Cooperativa?", a: "Constituição Federal (Art. 5º, XVIII e Art. 174, § 2º), Lei 5.764/71 (Lei Geral das Cooperativas) e Código Civil (Arts. 1093-1096)." },
-                { q: "Qual o objetivo principal de uma cooperativa?", a: "Prestação de serviços aos associados (mutualismo), sem objetivo primordial de lucro. O foco é o proveito comum dos membros." },
-                { q: "Qual a natureza jurídica da cooperativa?", a: "É sempre uma sociedade simples (de pessoas), de natureza civil, e não está sujeita à falência." },
-                { q: "Como funciona o capital social em uma cooperativa?", a: "É variável. Aumenta com a entrada de novos membros e diminui com a saída, refletindo o princípio da 'porta aberta'." },
-                { q: "Qual o princípio fundamental do direito de voto em uma cooperativa?", a: "Gestão democrática: 'um associado, um voto'. O poder de decisão é igualitário e não depende do capital investido." },
-                { q: "Qual o número mínimo de pessoas para constituir uma cooperativa?", a: "Regra geral: mínimo de 20 pessoas físicas. Exceção: cooperativas de trabalho, que podem ser constituídas com um mínimo de 7 sócios." },
-                { q: "Como as cooperativas são classificadas quanto à sua estrutura?", a: "Em Singulares (pessoas físicas), Cooperativas Centrais/Federações (mínimo de 3 singulares), e Confederações (mínimo de 3 federações)." },
-                { q: "Como são destinados os resultados positivos (sobras)?", a: "Após a dedução para fundos obrigatórios, as sobras são distribuídas aos associados na proporção de suas operações com a cooperativa (retorno)." },
-                { q: "Quais são os órgãos de governança da cooperativa?", a: "A estrutura é tripartite: Assembleia Geral (órgão supremo), Conselho de Administração/Diretoria (órgão executivo) e Conselho Fiscal (órgão de fiscalização)." },
-                { q: "Quais são os fundos obrigatórios que uma cooperativa deve constituir?", a: "O Fundo de Reserva, para reparar perdas e desenvolver atividades, e o Fundo de Assistência Técnica, Educacional e Social (FATES), para os associados." },
-                { q: "Os fundos obrigatórios da cooperativa podem ser distribuídos aos associados?", a: "Não, os fundos de Reserva e FATES são indivisíveis entre os associados, mesmo em caso de dissolução da sociedade." },
-                { q: "Como pode ser a responsabilidade do cooperado?", a: "Pode ser limitada (ao valor de suas quotas-partes) ou ilimitada (responde solidária e ilimitadamente pelas obrigações), conforme definir o estatuto social." },
-                { q: "Qual a principal diferença entre a cooperativa e uma empresa mercantil?", a: "A cooperativa visa prestar serviços ao associado (retorno proporcional às operações e voto por pessoa). A empresa visa lucro para o sócio (distribuição e voto proporcionais ao capital)." },
-                { q: "O que é o 'Ato Cooperativo'?", a: "É o negócio jurídico praticado entre a cooperativa e seus associados para a consecução dos objetivos sociais. Não implica operação de mercado nem contrato de compra e venda." }
-            ],
-            comanditaAcoes: [
-                { q: "Qual a base legal da Sociedade em Comandita por Ações?", a: "Lei das S/A (Lei 6.404/76, Arts. 280-284). Seu capital é dividido em ações e rege-se pelas normas das S/A, com as modificações da lei." },
-                { q: "Qual a estrutura de responsabilidade dos sócios?", a: "Há duas categorias: sócios-diretores (comanditados), com responsabilidade ilimitada, e acionistas (comanditários), com responsabilidade limitada ao valor de suas ações." },
-                { q: "Como é formado o nome empresarial?", a: "Adota firma ou razão social, que deve conter o nome de um ou mais sócios-diretores, seguido da expressão 'Comandita por Ações'." },
-                { q: "Qual a consequência de ter o nome na firma ou razão social?", a: "Os sócios cujos nomes figuram na firma ou razão social assumem responsabilidade subsidiária, ilimitada e solidária pelas obrigações sociais." },
-                { q: "Quem pode administrar a Comandita por Ações?", a: "Apenas sócios ou acionistas podem ser diretores/gerentes. São nomeados no estatuto, sem limite de tempo de mandato." },
-                { q: "Como um sócio-diretor pode ser destituído?", a: "Somente por deliberação de acionistas que representem, no mínimo, dois terços (2/3) do capital social." },
-                { q: "O diretor destituído mantém alguma responsabilidade?", a: "Sim, ele continuará responsável pelas obrigações sociais contraídas sob sua administração, mesmo após a destituição ou exoneração." },
-                { q: "A Assembleia Geral tem poderes ilimitados?", a: "Não. Atos essenciais como mudar o objeto social, aumentar ou diminuir o capital e emitir debêntures exigem o consentimento dos diretores." },
-                { q: "Quais institutos comuns em S/A NÃO se aplicam à Comandita por Ações?", a: "A lei afasta expressamente a aplicação de institutos como Conselho de Administração, autorização estatutária para aumento de capital e voto plural." }
-            ]
-        };
-
-        let currentDeck = 'cooperativas';
-        let currentIndex = 0;
-
-        const flashcardContainer = document.getElementById('flashcard-container');
-        const flashcard = document.getElementById('flashcard');
-        const frontText = document.getElementById('card-front-text');
-        const backText = document.getElementById('card-back-text');
-        const cardCounter = document.getElementById('card-counter');
-        
-        const flipCardBtn = document.getElementById('flip-card');
-        const nextCardBtn = document.getElementById('next-card');
-        const prevCardBtn = document.getElementById('prev-card');
-
-        const deckCoopBtn = document.getElementById('deck-coop');
-        const deckCaBtn = document.getElementById('deck-ca');
-
-        function loadCard(index) {
-            const deck = flashcardsData[currentDeck];
-            if (index >= 0 && index < deck.length) {
-                if (flashcard.classList.contains('is-flipped')) {
-                    flashcard.classList.remove('is-flipped');
-                }
-                
-                flashcardContainer.style.opacity = '0';
-                
-                setTimeout(() => {
-                    frontText.textContent = deck[index].q;
-                    backText.textContent = deck[index].a;
-                    cardCounter.textContent = `${index + 1} de ${deck.length}`;
-                    flashcardContainer.style.opacity = '1';
-                }, 200);
-            }
-        }
-
-        function changeDeck(deckName) {
-            currentDeck = deckName;
-            currentIndex = 0;
-            loadCard(currentIndex);
-
-            deckCoopBtn.classList.toggle('active', deckName === 'cooperativas');
-            deckCaBtn.classList.toggle('active', deckName === 'comanditaAcoes');
-        }
-
-        flipCardBtn.addEventListener('click', () => {
-            flashcard.classList.toggle('is-flipped');
-        });
-
-        nextCardBtn.addEventListener('click', () => {
-            const deck = flashcardsData[currentDeck];
-            currentIndex = (currentIndex + 1) % deck.length;
-            loadCard(currentIndex);
-        });
-
-        prevCardBtn.addEventListener('click', () => {
-            const deck = flashcardsData[currentDeck];
-            currentIndex = (currentIndex - 1 + deck.length) % deck.length;
-            loadCard(currentIndex);
-        });
-
-        deckCoopBtn.addEventListener('click', () => changeDeck('cooperativas'));
-        deckCaBtn.addEventListener('click', () => changeDeck('comanditaAcoes'));
-
-        // Initial load
-        changeDeck('cooperativas');
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
-
-
