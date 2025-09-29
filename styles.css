@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0a0a0a;
+    color: #e5e7eb;
+}
+        
+/* Aurora Background Effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 15% 80%, rgba(79, 70, 229, 0.2), transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(59, 130, 246, 0.15), transparent 40%);
+    filter: blur(80px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.main-container {
+    position: relative;
+    z-index: 1;
+}
+
+.flashcard-container {
+    perspective: 2000px;
+}
+
+.flashcard {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+}
+
+.flashcard.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.flashcard-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem;
+    text-align: center;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(31, 41, 55, 0.3); /* Glassy background */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 0 40px rgba(0,0,0,0.2);
+}
+
+.flashcard-front::before {
+    content: 'PERGUNTA';
+    position: absolute;
+    top: 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    letter-spacing: 0.1em;
+}
+
+.flashcard-back {
+    transform: rotateY(180deg);
+    background: rgba(79, 70, 229, 0.1);
+}
+
+.flashcard-back::before {
+    content: 'RESPOSTA';
+    position: absolute;
+    top: 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #9ca3af;
+    letter-spacing: 0.1em;
+}
+        
+.deck-button, .nav-button, #flip-card {
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.deck-button {
+    background: rgba(31, 41, 55, 0.5);
+}
+
+.deck-button:hover, .nav-button:hover, #flip-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+.deck-button.active {
+    background-color: #4f46e5;
+    color: white;
+    border-color: #4f46e5;
+    box-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
+}
+
+#flip-card {
+    background: linear-gradient(45deg, #4f46e5, #3b82f6);
+}

@@ -15,13 +15,13 @@
             font-family: 'Inter', sans-serif;
             background-color: #0a0a0a;
             color: #e5e7eb;
-            /* A linha 'overflow: hidden;' foi removida daqui para permitir o scroll */
+            overflow: hidden; /* Prevent scrollbars from the background effect */
         }
         
         /* Aurora Background Effect */
         body::before {
             content: '';
-            position: fixed; /* Alterado de 'absolute' para 'fixed' */
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
@@ -30,7 +30,7 @@
                 radial-gradient(circle at 15% 80%, rgba(79, 70, 229, 0.2), transparent 40%),
                 radial-gradient(circle at 85% 25%, rgba(59, 130, 246, 0.15), transparent 40%);
             filter: blur(80px);
-            z-index: -1; /* Alterado de 0 para -1 para ficar atrás de todo o conteúdo */
+            z-index: 0;
             pointer-events: none;
         }
 
@@ -72,26 +72,26 @@
             box-shadow: 0 0 40px rgba(0,0,0,0.2);
         }
         .flashcard-front::before {
-            content: 'PERGUNTA';
-            position: absolute;
-            top: 1.5rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #6b7280;
-            letter-spacing: 0.1em;
+             content: 'PERGUNTA';
+             position: absolute;
+             top: 1.5rem;
+             font-size: 0.75rem;
+             font-weight: 600;
+             color: #6b7280;
+             letter-spacing: 0.1em;
         }
         .flashcard-back {
             transform: rotateY(180deg);
             background: rgba(79, 70, 229, 0.1);
         }
         .flashcard-back::before {
-            content: 'RESPOSTA';
-            position: absolute;
-            top: 1.5rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #9ca3af;
-            letter-spacing: 0.1em;
+             content: 'RESPOSTA';
+             position: absolute;
+             top: 1.5rem;
+             font-size: 0.75rem;
+             font-weight: 600;
+             color: #9ca3af;
+             letter-spacing: 0.1em;
         }
         
         .deck-button, .nav-button, #flip-card {
@@ -102,7 +102,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.2);
         }
         .deck-button {
-            background: rgba(31, 41, 55, 0.5);
+             background: rgba(31, 41, 55, 0.5);
         }
         .deck-button:hover, .nav-button:hover, #flip-card:hover {
             transform: translateY(-3px);
@@ -127,15 +127,12 @@
             <p class="text-gray-400 mt-3 text-lg">Estude Direito Societário de forma interativa.</p>
         </header>
 
-        <div class="mb-8 flex flex-wrap justify-center gap-4">
-            <button id="deck-coop" class="deck-button text-white font-semibold py-3 px-6 rounded-full">
+        <div class="mb-8 flex justify-center space-x-4">
+            <button id="deck-coop" class="deck-button active text-white font-semibold py-3 px-6 rounded-full">
                 Cooperativas
             </button>
             <button id="deck-ca" class="deck-button text-white font-semibold py-3 px-6 rounded-full">
                 Comandita por Ações
-            </button>
-            <button id="deck-sa" class="deck-button text-white font-semibold py-3 px-6 rounded-full">
-                Órgãos da S.A.
             </button>
         </div>
 
@@ -165,7 +162,7 @@
         </div>
     </div>
 
-    <footer class="relative mt-10 bottom-6 text-center text-gray-600 text-sm w-full">
+    <footer class="absolute bottom-6 text-center text-gray-600 text-sm w-full">
         <p>Feito por Sheiden Development Studios</p>
     </footer>
 
@@ -182,35 +179,21 @@
                 { q: "Como são destinados os resultados positivos (sobras)?", a: "Após a dedução para fundos obrigatórios, as sobras são distribuídas aos associados na proporção de suas operações com a cooperativa (retorno)." },
                 { q: "Quais são os órgãos de governança da cooperativa?", a: "A estrutura é tripartite: Assembleia Geral (órgão supremo), Conselho de Administração/Diretoria (órgão executivo) e Conselho Fiscal (órgão de fiscalização)." },
                 { q: "Quais são os fundos obrigatórios que uma cooperativa deve constituir?", a: "O Fundo de Reserva, para reparar perdas e desenvolver atividades, e o Fundo de Assistência Técnica, Educacional e Social (FATES), para os associados." },
+                { q: "Os fundos obrigatórios da cooperativa podem ser distribuídos aos associados?", a: "Não, os fundos de Reserva e FATES são indivisíveis entre os associados, mesmo em caso de dissolução da sociedade." },
+                { q: "Como pode ser a responsabilidade do cooperado?", a: "Pode ser limitada (ao valor de suas quotas-partes) ou ilimitada (responde solidária e ilimitadamente pelas obrigações), conforme definir o estatuto social." },
+                { q: "Qual a principal diferença entre a cooperativa e uma empresa mercantil?", a: "A cooperativa visa prestar serviços ao associado (retorno proporcional às operações e voto por pessoa). A empresa visa lucro para o sócio (distribuição e voto proporcionais ao capital)." },
+                { q: "O que é o 'Ato Cooperativo'?", a: "É o negócio jurídico praticado entre a cooperativa e seus associados para a consecução dos objetivos sociais. Não implica operação de mercado nem contrato de compra e venda." }
             ],
             comanditaAcoes: [
                 { q: "Qual a base legal da Sociedade em Comandita por Ações?", a: "Lei das S/A (Lei 6.404/76, Arts. 280-284). Seu capital é dividido em ações e rege-se pelas normas das S/A, com as modificações da lei." },
                 { q: "Qual a estrutura de responsabilidade dos sócios?", a: "Há duas categorias: sócios-diretores (comanditados), com responsabilidade ilimitada, e acionistas (comanditários), com responsabilidade limitada ao valor de suas ações." },
                 { q: "Como é formado o nome empresarial?", a: "Adota firma ou razão social, que deve conter o nome de um ou mais sócios-diretores, seguido da expressão 'Comandita por Ações'." },
-                { q: "Qual a consequência de ter o nome na firma ou razão social?", a: "Os sócios cujos nomes figuram na firma assumem responsabilidade subsidiária, ilimitada e solidária pelas obrigações sociais." },
+                { q: "Qual a consequência de ter o nome na firma ou razão social?", a: "Os sócios cujos nomes figuram na firma ou razão social assumem responsabilidade subsidiária, ilimitada e solidária pelas obrigações sociais." },
                 { q: "Quem pode administrar a Comandita por Ações?", a: "Apenas sócios ou acionistas podem ser diretores/gerentes. São nomeados no estatuto, sem limite de tempo de mandato." },
                 { q: "Como um sócio-diretor pode ser destituído?", a: "Somente por deliberação de acionistas que representem, no mínimo, dois terços (2/3) do capital social." },
-                { q: "A Assembleia Geral tem poderes ilimitados?", a: "Não. Atos essenciais como mudar o objeto social, aumentar ou diminuir o capital, exigem o consentimento dos diretores." },
-                { q: "Quais institutos comuns em S/A NÃO se aplicam à Comandita por Ações?", a: "A lei afasta a aplicação de institutos como Conselho de Administração, autorização estatutária para aumento de capital, voto plural e bônus de subscrição." }
-            ],
-            orgaosSA: [
-                { q: "Quais são os quatro órgãos essenciais de uma Sociedade Anônima (S.A.)?", a: "Assembleia Geral, Conselho de Administração, Diretoria e Conselho Fiscal." },
-                { q: "Qual é a função da Assembleia Geral (AG) em uma S.A.?", a: "É o órgão deliberativo máximo, com competência para tratar de todos os assuntos relacionados ao objeto social da companhia." },
-                { q: "Quem tem a competência principal para convocar a Assembleia Geral?", a: "Em regra, a convocação é de competência do Conselho de Administração. Na inércia deste, outros órgãos ou acionistas podem convocar." },
-                { q: "Qual a diferença entre Assembleia Geral Ordinária (AGO) e Extraordinária (AGE)?", a: "A AGO ocorre anualmente para matérias específicas (contas, lucros, eleição). A AGE trata de todos os outros assuntos, sendo convocada quando necessário." },
-                { q: "Quais são as matérias de competência exclusiva da AGO?", a: "Tomar contas dos administradores, deliberar sobre a destinação do lucro líquido e dividendos, e eleger administradores e membros do conselho fiscal." },
-                { q: "Como deve ser feita a convocação para a Assembleia Geral?", a: "Por meio de edital publicado 3 vezes em jornal de grande circulação e no Diário Oficial, com antecedência específica para companhia aberta e fechada." },
-                { q: "Qual o órgão responsável pela administração da S.A.?", a: "A administração compete ao Conselho de Administração (deliberativo) e à Diretoria (executivo/representação). Em algumas S.A.s, pode haver apenas a Diretoria." },
-                { q: "Quais companhias são obrigadas a ter um Conselho de Administração?", a: "As companhias abertas e as de capital autorizado." },
-                { q: "Quais são os deveres fundamentais de um administrador de S.A.?", a: "Dever de diligência (cuidado), dever de lealdade, dever de se abster em conflito de interesses e dever de informar ao mercado." },
-                { q: "O administrador responde pessoalmente pelas obrigações da sociedade?", a: "Não, desde que atue em virtude de um ato regular de gestão. Ele responde civilmente por prejuízos causados com culpa ou dolo, ou violação da lei/estatuto." },
-                { q: "O que é a Ação Social de Responsabilização contra o administrador?", a: "É a ação movida pela companhia, mediante autorização da Assembleia Geral, para reparar os danos causados pelo administrador ao patrimônio social." },
-                { q: "Qual a composição mínima do Conselho de Administração?", a: "É composto por, no mínimo, 3 membros, eleitos pela Assembleia Geral." },
-                { q: "O que é um Conselheiro Independente e quando ele é obrigatório?", a: "É um membro sem vínculos com a gestão ou acionistas majoritários. É obrigatório na composição do conselho de companhias abertas, conforme regras da CVM." },
-                { q: "Qual a função da Diretoria?", a: "É o órgão de representação legal e execução da gestão dos negócios sociais. Os diretores são os executivos da companhia." },
-                { q: "Qual a principal função do Conselho Fiscal?", a: "Fiscalizar os atos dos administradores, verificar o cumprimento dos deveres legais e opinar sobre as demonstrações financeiras, assessorando a Assembleia Geral." },
-                { q: "O funcionamento do Conselho Fiscal é sempre permanente?", a: "Não. Sua existência é obrigatória, mas o funcionamento é facultativo (instalado a pedido de acionistas). É permanente apenas em sociedades de economia mista ou se o estatuto assim prever." },
-                { q: "Quem não pode ser membro do Conselho Fiscal?", a: "Membros da administração, empregados da companhia ou de controladas, e cônjuge ou parente de administrador até 3º grau." }
+                { q: "O diretor destituído mantém alguma responsabilidade?", a: "Sim, ele continuará responsável pelas obrigações sociais contraídas sob sua administração, mesmo após a destituição ou exoneração." },
+                { q: "A Assembleia Geral tem poderes ilimitados?", a: "Não. Atos essenciais como mudar o objeto social, aumentar ou diminuir o capital e emitir debêntures exigem o consentimento dos diretores." },
+                { q: "Quais institutos comuns em S/A NÃO se aplicam à Comandita por Ações?", a: "A lei afasta expressamente a aplicação de institutos como Conselho de Administração, autorização estatutária para aumento de capital e voto plural." }
             ]
         };
 
@@ -229,7 +212,6 @@
 
         const deckCoopBtn = document.getElementById('deck-coop');
         const deckCaBtn = document.getElementById('deck-ca');
-        const deckSaBtn = document.getElementById('deck-sa');
 
         function loadCard(index) {
             const deck = flashcardsData[currentDeck];
@@ -256,7 +238,6 @@
 
             deckCoopBtn.classList.toggle('active', deckName === 'cooperativas');
             deckCaBtn.classList.toggle('active', deckName === 'comanditaAcoes');
-            deckSaBtn.classList.toggle('active', deckName === 'orgaosSA');
         }
 
         flipCardBtn.addEventListener('click', () => {
@@ -277,10 +258,10 @@
 
         deckCoopBtn.addEventListener('click', () => changeDeck('cooperativas'));
         deckCaBtn.addEventListener('click', () => changeDeck('comanditaAcoes'));
-        deckSaBtn.addEventListener('click', () => changeDeck('orgaosSA'));
 
         // Initial load
         changeDeck('cooperativas');
     </script>
 </body>
 </html>
+
