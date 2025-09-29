@@ -15,13 +15,13 @@
             font-family: 'Inter', sans-serif;
             background-color: #0a0a0a;
             color: #e5e7eb;
-            overflow: hidden; /* Prevent scrollbars from the background effect */
+            /* A linha 'overflow: hidden;' foi removida daqui para permitir o scroll */
         }
         
         /* Aurora Background Effect */
         body::before {
             content: '';
-            position: absolute;
+            position: fixed; /* Alterado de 'absolute' para 'fixed' */
             top: 0;
             left: 0;
             right: 0;
@@ -30,7 +30,7 @@
                 radial-gradient(circle at 15% 80%, rgba(79, 70, 229, 0.2), transparent 40%),
                 radial-gradient(circle at 85% 25%, rgba(59, 130, 246, 0.15), transparent 40%);
             filter: blur(80px);
-            z-index: 0;
+            z-index: -1; /* Alterado de 0 para -1 para ficar atrás de todo o conteúdo */
             pointer-events: none;
         }
 
@@ -72,26 +72,26 @@
             box-shadow: 0 0 40px rgba(0,0,0,0.2);
         }
         .flashcard-front::before {
-             content: 'PERGUNTA';
-             position: absolute;
-             top: 1.5rem;
-             font-size: 0.75rem;
-             font-weight: 600;
-             color: #6b7280;
-             letter-spacing: 0.1em;
+            content: 'PERGUNTA';
+            position: absolute;
+            top: 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6b7280;
+            letter-spacing: 0.1em;
         }
         .flashcard-back {
             transform: rotateY(180deg);
             background: rgba(79, 70, 229, 0.1);
         }
         .flashcard-back::before {
-             content: 'RESPOSTA';
-             position: absolute;
-             top: 1.5rem;
-             font-size: 0.75rem;
-             font-weight: 600;
-             color: #9ca3af;
-             letter-spacing: 0.1em;
+            content: 'RESPOSTA';
+            position: absolute;
+            top: 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #9ca3af;
+            letter-spacing: 0.1em;
         }
         
         .deck-button, .nav-button, #flip-card {
@@ -102,7 +102,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.2);
         }
         .deck-button {
-             background: rgba(31, 41, 55, 0.5);
+            background: rgba(31, 41, 55, 0.5);
         }
         .deck-button:hover, .nav-button:hover, #flip-card:hover {
             transform: translateY(-3px);
@@ -165,7 +165,7 @@
         </div>
     </div>
 
-    <footer class="absolute bottom-6 text-center text-gray-600 text-sm w-full">
+    <footer class="relative mt-10 bottom-6 text-center text-gray-600 text-sm w-full">
         <p>Feito por Sheiden Development Studios</p>
     </footer>
 
@@ -284,4 +284,3 @@
     </script>
 </body>
 </html>
-
