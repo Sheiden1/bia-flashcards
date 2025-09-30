@@ -41,7 +41,7 @@ const flashcardsData = {
         { q: "Quem não pode ser membro do Conselho Fiscal?", a: "Membros da administração, empregados da companhia ou de controladas, e cônjuge ou parente de administrador até 3º grau." }
     ],
     // NOVA SEÇÃO ADICIONADA
-    orgaosSADois: [
+    orgaosSA2: [
         { q: "Qual é o órgão máximo de tomada de decisões em uma S.A.?", a: "A Assembleia Geral, que é uma reunião de acionistas para deliberar sobre assuntos cruciais da empresa." },
         { q: "Cite 3 competências da Assembleia Geral.", a: "Alterar o Estatuto Social, eleger ou destituir administradores e fiscais, e aprovar as contas da administração." },
         { q: "O Conselho de Administração é obrigatório em todas as S.A.s?", a: "Não. É obrigatório para empresas de economia mista, companhias abertas e com capital autorizado. Para as demais, é facultativo." },
@@ -135,3 +135,4 @@ if (deckSaDoisBtn) {
 document.addEventListener('DOMContentLoaded', () => {
     changeDeck('cooperativas');
 });
+
