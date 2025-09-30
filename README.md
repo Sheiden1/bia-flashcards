@@ -1,6 +1,6 @@
 Aplicação web interativa de flashcards desenvolvida para facilitar o estudo de Direito Societário. O projeto oferece uma interface moderna, limpa e responsiva para uma experiência de aprendizado agradável.
 
-https://imgur.com/a/WFuQ3nH
+![Preview](https://i.imgur.com/CiDKp1K.png)
 
 🎯 Sobre o Projeto
 Este projeto foi criado com o objetivo de fornecer uma ferramenta de estudo prática e visualmente atraente para estudantes e profissionais de Direito. Em vez de métodos tradicionais, a aplicação utiliza o sistema de repetição espaçada por meio de flashcards interativos, focando em temas específicos de Direito Societário.
