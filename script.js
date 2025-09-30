@@ -39,7 +39,20 @@ const flashcardsData = {
         { q: "Qual a principal função do Conselho Fiscal?", a: "Fiscalizar os atos dos administradores, verificar o cumprimento dos deveres legais e opinar sobre as demonstrações financeiras, assessorando a Assembleia Geral." },
         { q: "O funcionamento do Conselho Fiscal é sempre permanente?", a: "Não. Sua existência é obrigatória, mas o funcionamento é facultativo (instalado a pedido de acionistas). É permanente apenas em sociedades de economia mista ou se o estatuto assim prever." },
         { q: "Quem não pode ser membro do Conselho Fiscal?", a: "Membros da administração, empregados da companhia ou de controladas, e cônjuge ou parente de administrador até 3º grau." }
+    ],
+    // NOVA SEÇÃO ADICIONADA
+    orgaosSADois: [
+        { q: "Qual é o órgão máximo de tomada de decisões em uma S.A.?", a: "A Assembleia Geral, que é uma reunião de acionistas para deliberar sobre assuntos cruciais da empresa." },
+        { q: "Cite 3 competências da Assembleia Geral.", a: "Alterar o Estatuto Social, eleger ou destituir administradores e fiscais, e aprovar as contas da administração." },
+        { q: "O Conselho de Administração é obrigatório em todas as S.A.s?", a: "Não. É obrigatório para empresas de economia mista, companhias abertas e com capital autorizado. Para as demais, é facultativo." },
+        { q: "Qual a principal função do Conselho de Administração?", a: "Definir a direção geral dos negócios e fiscalizar a atuação da diretoria, funcionando como um órgão deliberativo." },
+        { q: "Qual a composição mínima do Conselho de Administração?", a: "Deve ter pelo menos três membros, eleitos e removíveis pela Assembleia Geral, com mandato de até três anos." },
+        { q: "O que é o sistema de 'voto múltiplo' na eleição do Conselho de Administração?", a: "É um sistema que permite aos acionistas minoritários agrupar seus votos em um único candidato, aumentando a chance de eleger um representante." },
+        { q: "Qual é o papel da Diretoria em uma S.A.?", a: "É o órgão executivo, responsável por representar a empresa e realizar os atos necessários para o seu bom funcionamento." },
+        { q: "Qual a função do Conselho Fiscal?", a: "Sua principal função é fiscalizar as atividades e os atos dos administradores da empresa." },
+        { q: "O funcionamento do Conselho Fiscal é sempre permanente?", a: "Não. Ele pode ser permanente (obrigatório em sociedades de economia mista) ou transitório (instalado a pedido dos acionistas)." }
     ]
+    // FIM DA NOVA SEÇÃO
 };
 
 let currentDeck = 'cooperativas';
@@ -58,6 +71,8 @@ const prevCardBtn = document.getElementById('prev-card');
 const deckCoopBtn = document.getElementById('deck-coop');
 const deckCaBtn = document.getElementById('deck-ca');
 const deckSaBtn = document.getElementById('deck-sa');
+// ADICIONE A REFERÊNCIA AO NOVO BOTÃO AQUI
+const deckSaDoisBtn = document.getElementById('deck-sa-dois'); // Supondo que o ID no HTML seja 'deck-sa-dois'
 
 function loadCard(index) {
     const deck = flashcardsData[currentDeck];
@@ -65,9 +80,9 @@ function loadCard(index) {
         if (flashcard.classList.contains('is-flipped')) {
             flashcard.classList.remove('is-flipped');
         }
-        
+
         flashcardContainer.style.opacity = '0';
-        
+
         setTimeout(() => {
             frontText.textContent = deck[index].q;
             backText.textContent = deck[index].a;
@@ -85,6 +100,10 @@ function changeDeck(deckName) {
     deckCoopBtn.classList.toggle('active', deckName === 'cooperativas');
     deckCaBtn.classList.toggle('active', deckName === 'comanditaAcoes');
     deckSaBtn.classList.toggle('active', deckName === 'orgaosSA');
+    // ADICIONE A LÓGICA PARA O NOVO BOTÃO
+    if (deckSaDoisBtn) { // Verifica se o botão existe antes de manipular
+        deckSaDoisBtn.classList.toggle('active', deckName === 'orgaosSADois');
+    }
 }
 
 flipCardBtn.addEventListener('click', () => {
@@ -106,6 +125,11 @@ prevCardBtn.addEventListener('click', () => {
 deckCoopBtn.addEventListener('click', () => changeDeck('cooperativas'));
 deckCaBtn.addEventListener('click', () => changeDeck('comanditaAcoes'));
 deckSaBtn.addEventListener('click', () => changeDeck('orgaosSA'));
+// ADICIONE O EVENT LISTENER PARA O NOVO BOTÃO
+if (deckSaDoisBtn) {
+    deckSaDoisBtn.addEventListener('click', () => changeDeck('orgaosSADois'));
+}
+
 
 // Carga inicial
 document.addEventListener('DOMContentLoaded', () => {
