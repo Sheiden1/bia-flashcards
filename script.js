@@ -40,7 +40,6 @@ const flashcardsData = {
         { q: "O funcionamento do Conselho Fiscal é sempre permanente?", a: "Não. Sua existência é obrigatória, mas o funcionamento é facultativo (instalado a pedido de acionistas). É permanente apenas em sociedades de economia mista ou se o estatuto assim prever." },
         { q: "Quem não pode ser membro do Conselho Fiscal?", a: "Membros da administração, empregados da companhia ou de controladas, e cônjuge ou parente de administrador até 3º grau." }
     ],
-    // CORREÇÃO APLICADA AQUI
     orgaosSADois: [
         { q: "Qual é o órgão máximo de tomada de decisões em uma S.A.?", a: "A Assembleia Geral, que é uma reunião de acionistas para deliberar sobre assuntos cruciais da empresa." },
         { q: "Cite 3 competências da Assembleia Geral.", a: "Alterar o Estatuto Social, eleger ou destituir administradores e fiscais, e aprovar as contas da administração." },
@@ -127,7 +126,7 @@ if (deckSaDoisBtn) {
 }
 
 
-// Carga inicial
 document.addEventListener('DOMContentLoaded', () => {
     changeDeck('cooperativas');
 });
+
