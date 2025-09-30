@@ -1,4 +1,3 @@
-/* Removido o @import da fonte daqui e movido para o HTML */
 
 html {
     scroll-behavior: smooth;
@@ -17,7 +16,6 @@ body {
     margin: 0;
 }
         
-/* Aurora Background Effect */
 body::before {
     content: '';
     position: fixed;
@@ -87,7 +85,7 @@ body::before {
     width: 100%;
     height: 100%;
     position: relative;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Animação um pouco mais rápida */
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Ajuste no tempo da animação do flashcard, nao mexer, tempo ja esta ideal */
     transform-style: preserve-3d;
 }
 
@@ -110,13 +108,8 @@ body::before {
     border-radius: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
     
-    /* --- OTIMIZAÇÃO PRINCIPAL APLICADA AQUI --- */
-    /* Removemos o backdrop-filter que causava a lentidão */
-    /* backdrop-filter: blur(12px); <-- Removido */
-    /* -webkit-backdrop-filter: blur(12px); <-- Removido */
-    
-    /* Substituímos por um fundo sólido e translúcido, que é muito mais leve */
-    background: rgba(30, 41, 59, 0.6); /* Um cinza-azulado escuro e translúcido */
+
+    background: rgba(30, 41, 59, 0.6); 
     
     box-shadow: 0 0 40px rgba(0,0,0,0.2);
 }
@@ -159,7 +152,6 @@ body::before {
 
 .flashcard-back {
     transform: rotateY(180deg);
-    /* Ajustamos o fundo do verso para combinar com o novo estilo */
     background: rgba(49, 46, 129, 0.5); 
 }
 
@@ -248,3 +240,4 @@ body::before {
 .flashcard-container.is-loading .card-text-back {
     opacity: 0;
 }
+
