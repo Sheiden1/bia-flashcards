@@ -40,8 +40,8 @@ const flashcardsData = {
         { q: "O funcionamento do Conselho Fiscal é sempre permanente?", a: "Não. Sua existência é obrigatória, mas o funcionamento é facultativo (instalado a pedido de acionistas). É permanente apenas em sociedades de economia mista ou se o estatuto assim prever." },
         { q: "Quem não pode ser membro do Conselho Fiscal?", a: "Membros da administração, empregados da companhia ou de controladas, e cônjuge ou parente de administrador até 3º grau." }
     ],
-    // NOVA SEÇÃO ADICIONADA
-    orgaosSA2: [
+    // CORREÇÃO APLICADA AQUI
+    orgaosSADois: [
         { q: "Qual é o órgão máximo de tomada de decisões em uma S.A.?", a: "A Assembleia Geral, que é uma reunião de acionistas para deliberar sobre assuntos cruciais da empresa." },
         { q: "Cite 3 competências da Assembleia Geral.", a: "Alterar o Estatuto Social, eleger ou destituir administradores e fiscais, e aprovar as contas da administração." },
         { q: "O Conselho de Administração é obrigatório em todas as S.A.s?", a: "Não. É obrigatório para empresas de economia mista, companhias abertas e com capital autorizado. Para as demais, é facultativo." },
@@ -52,7 +52,6 @@ const flashcardsData = {
         { q: "Qual a função do Conselho Fiscal?", a: "Sua principal função é fiscalizar as atividades e os atos dos administradores da empresa." },
         { q: "O funcionamento do Conselho Fiscal é sempre permanente?", a: "Não. Ele pode ser permanente (obrigatório em sociedades de economia mista) ou transitório (instalado a pedido dos acionistas)." }
     ]
-    // FIM DA NOVA SEÇÃO
 };
 
 let currentDeck = 'cooperativas';
@@ -71,8 +70,7 @@ const prevCardBtn = document.getElementById('prev-card');
 const deckCoopBtn = document.getElementById('deck-coop');
 const deckCaBtn = document.getElementById('deck-ca');
 const deckSaBtn = document.getElementById('deck-sa');
-// ADICIONE A REFERÊNCIA AO NOVO BOTÃO AQUI
-const deckSaDoisBtn = document.getElementById('deck-sa-dois'); // Supondo que o ID no HTML seja 'deck-sa-dois'
+const deckSaDoisBtn = document.getElementById('deck-sa-dois');
 
 function loadCard(index) {
     const deck = flashcardsData[currentDeck];
@@ -100,8 +98,7 @@ function changeDeck(deckName) {
     deckCoopBtn.classList.toggle('active', deckName === 'cooperativas');
     deckCaBtn.classList.toggle('active', deckName === 'comanditaAcoes');
     deckSaBtn.classList.toggle('active', deckName === 'orgaosSA');
-    // ADICIONE A LÓGICA PARA O NOVO BOTÃO
-    if (deckSaDoisBtn) { // Verifica se o botão existe antes de manipular
+    if (deckSaDoisBtn) {
         deckSaDoisBtn.classList.toggle('active', deckName === 'orgaosSADois');
     }
 }
@@ -125,7 +122,6 @@ prevCardBtn.addEventListener('click', () => {
 deckCoopBtn.addEventListener('click', () => changeDeck('cooperativas'));
 deckCaBtn.addEventListener('click', () => changeDeck('comanditaAcoes'));
 deckSaBtn.addEventListener('click', () => changeDeck('orgaosSA'));
-// ADICIONE O EVENT LISTENER PARA O NOVO BOTÃO
 if (deckSaDoisBtn) {
     deckSaDoisBtn.addEventListener('click', () => changeDeck('orgaosSADois'));
 }
@@ -135,4 +131,3 @@ if (deckSaDoisBtn) {
 document.addEventListener('DOMContentLoaded', () => {
     changeDeck('cooperativas');
 });
-
