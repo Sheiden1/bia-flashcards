@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+/* Removido o @import da fonte daqui e movido para o HTML */
 
 html {
     scroll-behavior: smooth;
@@ -8,6 +8,13 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: #0a0a0a;
     color: #e5e7eb;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    margin: 0;
 }
         
 /* Aurora Background Effect */
@@ -29,17 +36,58 @@ body::before {
 .main-container {
     position: relative;
     z-index: 1;
+    width: 100%;
+    max-width: 42rem; /* 672px */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.title {
+    font-size: 2.25rem; /* 36px */
+    line-height: 2.5rem; /* 40px */
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.025em;
+}
+
+.subtitle {
+    color: #9ca3af;
+    margin-top: 0.75rem;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+}
+
+.deck-container {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .flashcard-container {
     perspective: 2000px;
+    width: 100%;
+    height: 20rem; /* 320px */
+    margin-bottom: 2rem;
 }
+@media (min-width: 768px) {
+    .flashcard-container {
+        height: 24rem; /* 384px */
+    }
+}
+
 
 .flashcard {
     width: 100%;
     height: 100%;
     position: relative;
-    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Animação um pouco mais rápida */
     transform-style: preserve-3d;
 }
 
@@ -61,50 +109,88 @@ body::before {
     text-align: center;
     border-radius: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(31, 41, 55, 0.3); /* Glassy background */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    
+    /* --- OTIMIZAÇÃO PRINCIPAL APLICADA AQUI --- */
+    /* Removemos o backdrop-filter que causava a lentidão */
+    /* backdrop-filter: blur(12px); <-- Removido */
+    /* -webkit-backdrop-filter: blur(12px); <-- Removido */
+    
+    /* Substituímos por um fundo sólido e translúcido, que é muito mais leve */
+    background: rgba(30, 41, 59, 0.6); /* Um cinza-azulado escuro e translúcido */
+    
     box-shadow: 0 0 40px rgba(0,0,0,0.2);
 }
 
-.flashcard-front::before {
+.card-text-front {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 700;
+    color: #fff;
+}
+@media (min-width: 768px) {
+    .card-text-front {
+        font-size: 1.5rem; /* 24px */
+    }
+}
+
+.card-text-back {
+    font-size: 1rem; /* 16px */
+    font-weight: 500;
+    color: #d1d5db;
+}
+@media (min-width: 768px) {
+    .card-text-back {
+        font-size: 1.125rem; /* 18px */
+    }
+}
+
+
+.flashcard-front::before, .flashcard-back::before {
     content: 'PERGUNTA';
     position: absolute;
     top: 1.5rem;
     font-size: 0.75rem;
     font-weight: 600;
-    color: #6b7280;
     letter-spacing: 0.1em;
+}
+
+.flashcard-front::before {
+    color: #6b7280;
 }
 
 .flashcard-back {
     transform: rotateY(180deg);
-    background: rgba(79, 70, 229, 0.1);
+    /* Ajustamos o fundo do verso para combinar com o novo estilo */
+    background: rgba(49, 46, 129, 0.5); 
 }
 
 .flashcard-back::before {
     content: 'RESPOSTA';
-    position: absolute;
-    top: 1.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
     color: #9ca3af;
-    letter-spacing: 0.1em;
+}
+
+.card-counter {
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
 }
         
-.deck-button, .nav-button, #flip-card {
+.deck-button, .nav-button, .flip-button {
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
 }
 
 .deck-button {
-    background: rgba(31, 41, 55, 0.5);
+    background: rgba(55, 65, 81, 0.7);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
 }
 
-.deck-button:hover, .nav-button:hover, #flip-card:hover {
+.deck-button:hover, .nav-button:hover, .flip-button:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 15px rgba(0,0,0,0.2);
 }
@@ -116,6 +202,49 @@ body::before {
     box-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
 }
 
-#flip-card {
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.nav-button {
+    background: rgba(55, 65, 81, 0.7);
+    padding: 1rem;
+    border-radius: 9999px;
+    color: #d1d5db;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flip-button {
     background: linear-gradient(45deg, #4f46e5, #3b82f6);
+    color: white;
+    font-weight: 700;
+    padding: 1rem 2.5rem;
+    border-radius: 9999px;
+    font-size: 1.125rem; /* 18px */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.footer {
+    position: relative;
+    margin-top: 2.5rem;
+    text-align: center;
+    color: #4b5563;
+    font-size: 0.875rem; /* 14px */
+    width: 100%;
+}
+
+.card-text-front, .card-text-back {
+    transition: opacity 0.15s ease-in-out;
+}
+
+.flashcard-container.is-loading .card-text-front,
+.flashcard-container.is-loading .card-text-back {
+    opacity: 0;
 }
